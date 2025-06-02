@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: backend-meetcode
+  security:
+    user:
+      name: admin
+      password: password
+  datasource:
+    url: jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:5432/postgres?user=postgres.pyutsvbzmnsxgwxtauxq&password=12345678910qwertyuioasdfjuyvtvvtjvtytrvt
+    username: postgres
+    password: 12345678910qwertyuioasdfjuyvtvvtjvtytrvt
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  graphql:
+    graphiql:
+      enabled: true
+    cors:
+      allow-credentials: true
+      allowed-origins: http://localhost:3000,https://dsa-colab-frontend.vercel.app
