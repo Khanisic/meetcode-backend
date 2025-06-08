@@ -79,9 +79,11 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("User account is not active");
         }
 
+        user.setRefreshToken(jwtUtil.generateRefreshToken(user.getUsername()));
+        userRepository.save(user);
         return new AuthResponse(
             jwtUtil.generateAccessToken(user.getUsername()),
-            jwtUtil.generateRefreshToken(user.getUsername())
+            user.getRefreshToken()
         );
     }
 } 

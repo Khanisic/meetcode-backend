@@ -74,6 +74,9 @@ public class User {
     
     @Column(name = "is_trial_active")
     private Boolean isTrialActive = false;
+
+    @Column(name = "refresh_token")
+    private String refreshToken;
     
     @PrePersist
     protected void onCreate() {

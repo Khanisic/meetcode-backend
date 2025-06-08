@@ -17,6 +17,25 @@ type User {
     isTrial: Boolean
     isTrialExpired: Boolean
     isTrialActive: Boolean
+    refreshToken: String
+}
+
+type Question {
+    qid: ID!
+    title: String!
+    desc: String
+    tags: [String!]!
+    likes: Int
+    dislikes: Int
+    difficulty: String
+    examples: String
+    tests: String
+    starting: String
+    ending: String
+    solutions: String
+    code: String
+    constraints: [String!]
+    titleSlug: String
 }
 
 input UserInput {
@@ -41,6 +60,9 @@ type Query {
     getAllUsers: [User!]!
     getUserById(id: ID!): User
     getUserByUsername(username: String!): User
+    getAllQuestions: [Question!]!
+    getQuestionById(id: ID!): Question
+    getQuestionByTitleSlug(titleSlug: String!): Question
 }
 
 type Mutation {
