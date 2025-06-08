@@ -5,6 +5,7 @@ WORKDIR /home/gradle/project
 # Copy necessary files for Gradle build
 COPY gradle gradle
 COPY gradlew .
+COPY build.gradle .
 COPY src src
 
 # Ensure the wrapper is executable
