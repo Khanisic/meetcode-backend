@@ -56,6 +56,12 @@ type AuthResponse {
     refreshToken: String!
 }
 
+type CollaborativeSession {
+     sessionId: ID!
+     document: String!
+     activeUsers: [String!]!
+ }
+
 type Query {
     getAllUsers: [User!]!
     getUserById(id: ID!): User
@@ -63,10 +69,18 @@ type Query {
     getAllQuestions: [Question!]!
     getQuestionById(id: ID!): Question
     getQuestionByTitleSlug(titleSlug: String!): Question
+    getSession(sessionId: ID!): CollaborativeSession
 }
 
-type Mutation {
-    register(user: UserInput!): User!
-    updateUser(id: ID!, user: UserInput!): User!
-    login(loginRequest: LoginRequest!): AuthResponse!
-} 
+ type Mutation {
+     register(user: UserInput!): User!
+     updateUser(id: ID!, user: UserInput!): User!
+     login(loginRequest: LoginRequest!): AuthResponse!
+     joinSession(sessionId: ID!, username: String!): CollaborativeSession!
+     leaveSession(sessionId: ID!, username: String!): CollaborativeSession!
+     updateDocument(sessionId: ID!, document: String!, username: String!): CollaborativeSession!
+ }
+
+ type Subscription {
+     sessionUpdates(sessionId: ID!): CollaborativeSession!
+ }
