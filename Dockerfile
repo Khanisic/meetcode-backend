@@ -16,7 +16,7 @@ RUN ./gradlew clean bootJar --no-daemon
 
 # 2. Runtime Stage: use a slim Alpine image with Temurin JDK 24
 FROM eclipse-temurin:24-jdk-alpine  
-EXPOSE 8080
+EXPOSE 8081
 
 # Copy the built JAR from the builder stage
 COPY --from=builder /home/gradle/project/build/libs/*.jar /app/app.jar
