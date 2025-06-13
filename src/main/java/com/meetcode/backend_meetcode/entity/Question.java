@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -38,20 +39,11 @@ public class Question {
     @Column(name = "difficulty")
     private String difficulty;
 
-    @Column(name = "examples")
-    private String examples;
-
-    @Column(name = "tests")
-    private String tests;
-
     @Column(name = "starting", columnDefinition = "text")
     private String starting;
 
     @Column(name = "ending", columnDefinition = "text")
     private String ending;
-
-    @Column(name = "solutions")
-    private String solutions;
 
     @Column(name = "code", columnDefinition = "text")
     private String code;
@@ -61,4 +53,13 @@ public class Question {
 
     @Column(name = "titleSlug")
     private String titleSlug;
+
+    @OneToMany(mappedBy = "question")
+    private List<Solution> solutions;
+
+    @OneToMany(mappedBy = "question")
+    private List<Example> examples;
+
+    @OneToMany(mappedBy = "question")
+    private List<Test> tests;
 } 

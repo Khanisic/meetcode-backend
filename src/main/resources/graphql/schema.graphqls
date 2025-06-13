@@ -28,14 +28,37 @@ type Question {
     likes: Int
     dislikes: Int
     difficulty: String
-    examples: String
-    tests: String
     starting: String
     ending: String
-    solutions: String
     code: String
     constraints: [String!]
     titleSlug: String
+    solutions: [Solution!]
+    examples: [Example!]
+    tests: [Test!]
+}
+
+type Solution {
+    qid: ID!
+    id: ID!
+    java: String
+    time: String
+    space: String
+    approach: String
+}
+
+type Example {
+    id: ID!
+    qid: ID!
+    test: String
+    expectedOutput: String
+}
+
+type Test {
+    id: ID!
+    qid: ID!
+    test: String
+    expectedOutput: String
 }
 
 input UserInput {
@@ -51,16 +74,31 @@ input LoginRequest {
     password: String!
 }
 
+input SolutionInput {
+    qid: ID!
+    id: ID!
+    java: String
+    time: String
+    space: String
+    approach: String
+}
+
+input ExampleInput {
+    qid: ID!
+    test: String
+    expectedOutput: String
+}
+
+input TestInput {
+    qid: ID!
+    test: String
+    expectedOutput: String
+}
+
 type AuthResponse {
     accessToken: String!
     refreshToken: String!
 }
-
-type CollaborativeSession {
-     sessionId: ID!
-     document: String!
-     activeUsers: [String!]!
- }
 
 type Query {
     getAllUsers: [User!]!
@@ -69,18 +107,23 @@ type Query {
     getAllQuestions: [Question!]!
     getQuestionById(id: ID!): Question
     getQuestionByTitleSlug(titleSlug: String!): Question
-    getSession(sessionId: ID!): CollaborativeSession
+    getSolutionsByQuestionId(qid: ID!): [Solution!]!
+    getExamplesByQuestionId(qid: ID!): [Example!]!
+    getTestsByQuestionId(qid: ID!): [Test!]!
 }
 
  type Mutation {
      register(user: UserInput!): User!
      updateUser(id: ID!, user: UserInput!): User!
      login(loginRequest: LoginRequest!): AuthResponse!
-     joinSession(sessionId: ID!, username: String!): CollaborativeSession!
-     leaveSession(sessionId: ID!, username: String!): CollaborativeSession!
-     updateDocument(sessionId: ID!, document: String!, username: String!): CollaborativeSession!
+     createSolution(solution: SolutionInput!): Solution!
+     updateSolution(solution: SolutionInput!): Solution!
+     deleteSolution(qid: ID!, id: ID!): Boolean!
+     createExample(example: ExampleInput!): Example!
+     updateExample(example: ExampleInput!): Example!
+     deleteExample(id: ID!): Boolean!
+     createTest(test: TestInput!): Test!
+     updateTest(test: TestInput!): Test!
+     deleteTest(id: ID!): Boolean!
  }
 
- type Subscription {
-     sessionUpdates(sessionId: ID!): CollaborativeSession!
- }
