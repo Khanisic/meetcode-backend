@@ -6,7 +6,7 @@ spring:
       name: admin
       password: password
   datasource:
-    url: jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:6543/postgres?user=postgres.pyutsvbzmnsxgwxtauxq&password=12345678910qwertyuioasdfjuyvtvvtjvtytrvt
+    url: jdbc:postgresql://aws-0-us-east-2.pooler.supabase.com:5432/postgres?user=postgres.pyutsvbzmnsxgwxtauxq&password=12345678910qwertyuioasdfjuyvtvvtjvtytrvt
     username: postgres
     password: 12345678910qwertyuioasdfjuyvtvvtjvtytrvt
     driver-class-name: org.postgresql.Driver
