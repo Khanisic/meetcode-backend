@@ -3,20 +3,24 @@ package com.meetcode.backend_meetcode.service.impl;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.meetcode.backend_meetcode.entity.Example;
 import com.meetcode.backend_meetcode.repository.ExampleRepository;
 import com.meetcode.backend_meetcode.service.ExampleService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@Transactional
+@AllArgsConstructor
 public class ExampleServiceImpl implements ExampleService {
 
-    @Autowired
-    private ExampleRepository exampleRepository;
+    private final ExampleRepository exampleRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Example> getExamplesByQuestionId(UUID qid) {
         return exampleRepository.findByQid(qid);
     }
