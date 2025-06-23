@@ -86,4 +86,21 @@ public class UserServiceImpl implements UserService {
             user.getRefreshToken()
         );
     }
+
+    @Override
+    public void updateUserScore(String username, Integer scoreToAdd) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found with username: " + username);
+        }
+        
+        // Calculate new score, minimum 0
+        int currentScore = user.getScore() != null ? user.getScore() : 0;
+        int newScore = Math.max(0, currentScore + scoreToAdd);
+        
+        user.setScore(newScore);
+        userRepository.save(user);
+        
+        System.out.println("Updated user " + username + " score: " + currentScore + " + " + scoreToAdd + " = " + newScore);
+    }
 } 

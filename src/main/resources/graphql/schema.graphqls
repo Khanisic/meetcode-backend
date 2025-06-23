@@ -38,6 +38,34 @@ type Question {
     tests: [Test!]
 }
 
+type Challenge {
+    cid: ID!
+    pid: String!
+    status: String!
+    startDate: String
+    endDate: String
+    participants: [Participant!]
+}
+
+type Participant {
+    username: String!
+    cid: ID!
+    rank: Int
+    score: Int!
+    time: String!
+}
+
+type UserChallengeHistory {
+    cid: ID!
+    pid: String!
+    status: String!
+    startDate: String
+    endDate: String
+    userScore: Int!
+    userRank: Int
+    participationTime: String!
+}
+
 type Solution {
     qid: ID!
     id: ID!
@@ -95,6 +123,12 @@ input TestInput {
     expectedOutput: String
 }
 
+input ParticipantScoreInput {
+    username: String!
+    score: Int!
+    rank: Int!
+}
+
 type AuthResponse {
     accessToken: String!
     refreshToken: String!
@@ -110,6 +144,13 @@ type Query {
     getSolutionsByQuestionId(qid: ID!): [Solution!]!
     getExamplesByQuestionId(qid: ID!): [Example!]!
     getTestsByQuestionId(qid: ID!): [Test!]!
+    getAllChallenges: [Challenge!]!
+    getChallengeById(cid: ID!): Challenge
+    getOpenChallenges: [Challenge!]!
+    getParticipantsByChallengeId(cid: ID!): [Participant!]!
+    getParticipantsByUsername(username: String!): [Participant!]!
+    isParticipantInChallenge(cid: ID!, username: String!): Boolean!
+    getUserChallengeHistory(username: String!): [UserChallengeHistory!]!
 }
 
  type Mutation {
@@ -125,5 +166,10 @@ type Query {
      createTest(test: TestInput!): Test!
      updateTest(test: TestInput!): Test!
      deleteTest(id: ID!): Boolean!
+     createChallenge(pid: String!): Challenge!
+     findOrCreateLobby(username: String!): Challenge!
+     startChallenge(cid: ID!): Challenge!
+     joinChallenge(cid: ID!, username: String!): Participant!
+     endChallenge(cid: ID!, participantScores: [ParticipantScoreInput!]!): Challenge!
  }
 

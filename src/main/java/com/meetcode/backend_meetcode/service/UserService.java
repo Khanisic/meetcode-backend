@@ -13,4 +13,5 @@ public interface UserService {
     User updateUser(User user);
     AuthResponse login(LoginRequest loginRequest);
     User getUserByUsername(String username);
+    void updateUserScore(String username, Integer scoreToAdd);
 } 
