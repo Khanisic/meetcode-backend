@@ -18,6 +18,7 @@ type User {
     isTrialExpired: Boolean
     isTrialActive: Boolean
     refreshToken: String
+    submissions: [Submission!]
 }
 
 type Question {
@@ -36,6 +37,7 @@ type Question {
     solutions: [Solution!]
     examples: [Example!]
     tests: [Test!]
+    submissions: [Submission!]
 }
 
 type Challenge {
@@ -89,6 +91,15 @@ type Test {
     expectedOutput: String
 }
 
+type Submission {
+    id: ID!
+    username: String!
+    question: Question!
+    submissionScore: Int!
+    submissionMode: String!
+    dateSubmitted: String!
+}
+
 input UserInput {
     firstName: String
     lastName: String
@@ -129,6 +140,13 @@ input ParticipantScoreInput {
     rank: Int!
 }
 
+input SubmissionInput {
+    username: String
+    questionId: ID!
+    submissionScore: Int!
+    submissionMode: String!
+}
+
 type AuthResponse {
     accessToken: String!
     refreshToken: String!
@@ -151,6 +169,14 @@ type Query {
     getParticipantsByUsername(username: String!): [Participant!]!
     isParticipantInChallenge(cid: ID!, username: String!): Boolean!
     getUserChallengeHistory(username: String!): [UserChallengeHistory!]!
+    getAllSubmissions: [Submission!]!
+    getSubmissionById(id: ID!): Submission
+    getSubmissionsByUsername(username: String!): [Submission!]!
+    getSubmissionsByQuestionId(questionId: ID!): [Submission!]!
+    getSubmissionsByUserAndQuestion(username: String!, titleSlug: String!): [Submission!]!
+    getSubmissionsByMode(submissionMode: String!): [Submission!]!
+    getUserSubmissionsOrderedByDate(username: String!): [Submission!]!
+    getQuestionSubmissionsOrderedByScore(questionId: ID!): [Submission!]!
 }
 
  type Mutation {
@@ -171,5 +197,8 @@ type Query {
      startChallenge(cid: ID!): Challenge!
      joinChallenge(cid: ID!, username: String!): Participant!
      endChallenge(cid: ID!, participantScores: [ParticipantScoreInput!]!): Challenge!
+     createSubmission(submissionInput: SubmissionInput!): Submission!
+     updateSubmission(id: ID!, submissionInput: SubmissionInput!): Submission!
+     deleteSubmission(id: ID!): Boolean!
  }
 

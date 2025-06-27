@@ -62,4 +62,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question")
     private List<Test> tests;
+
+    @OneToMany(mappedBy = "question")
+    private List<Submission> submissions;
 } 
