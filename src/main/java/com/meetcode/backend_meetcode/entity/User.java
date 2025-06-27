@@ -80,6 +80,9 @@ public class User {
     @Column(name = "refresh_token")
     private String refreshToken;
 
+    @Column(name = "banner")
+    private String banner;
+
     @OneToMany(mappedBy = "username")
     private List<Submission> submissions;
     
@@ -87,5 +90,6 @@ public class User {
     protected void onCreate() {
         userSince = LocalDateTime.now();
         score = 0;
+        banner = "none";
     }
 } 

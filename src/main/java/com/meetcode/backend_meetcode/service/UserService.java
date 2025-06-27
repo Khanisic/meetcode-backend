@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.meetcode.backend_meetcode.dto.AuthResponse;
 import com.meetcode.backend_meetcode.dto.LoginRequest;
+import com.meetcode.backend_meetcode.dto.UpdateBannerResponse;
 import com.meetcode.backend_meetcode.entity.User;
 
 public interface UserService {
@@ -14,4 +15,5 @@ public interface UserService {
     AuthResponse login(LoginRequest loginRequest);
     User getUserByUsername(String username);
     void updateUserScore(String username, Integer scoreToAdd);
+    UpdateBannerResponse updateUserBanner(String username, String banner);
 } 

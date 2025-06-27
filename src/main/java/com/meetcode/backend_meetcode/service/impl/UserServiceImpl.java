@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.meetcode.backend_meetcode.Util.JwtUtil;
 import com.meetcode.backend_meetcode.dto.AuthResponse;
 import com.meetcode.backend_meetcode.dto.LoginRequest;
+import com.meetcode.backend_meetcode.dto.UpdateBannerResponse;
 import com.meetcode.backend_meetcode.entity.User;
 import com.meetcode.backend_meetcode.repository.UserRepository;
 import com.meetcode.backend_meetcode.service.UserService;
@@ -102,5 +103,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
         
         System.out.println("Updated user " + username + " score: " + currentScore + " + " + scoreToAdd + " = " + newScore);
+    }
+
+    @Override
+    public UpdateBannerResponse updateUserBanner(String username, String banner) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new RuntimeException("User not found with username: " + username);
+        }
+        
+        user.setBanner(banner);
+        userRepository.save(user);
+        
+        return new UpdateBannerResponse(username, true, banner);
     }
 } 

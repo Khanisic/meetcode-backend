@@ -5,16 +5,15 @@ import java.util.List;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import com.meetcode.backend_meetcode.dto.AuthResponse;
 import com.meetcode.backend_meetcode.dto.LoginRequest;
+import com.meetcode.backend_meetcode.dto.UpdateBannerResponse;
 import com.meetcode.backend_meetcode.entity.User;
 import com.meetcode.backend_meetcode.repository.UserRepository;
 import com.meetcode.backend_meetcode.service.UserService;
-
 
 import lombok.AllArgsConstructor;
 
@@ -75,5 +74,10 @@ public class UserResolver {
         existingUser.setPassword(userInput.getPassword());
 
         return userService.updateUser(existingUser);
+    }
+
+    @MutationMapping
+    public UpdateBannerResponse updateUserBanner(@Argument String username, @Argument String banner) {
+        return userService.updateUserBanner(username, banner);
     }
 } 

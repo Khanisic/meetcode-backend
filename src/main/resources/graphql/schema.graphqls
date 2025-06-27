@@ -18,6 +18,7 @@ type User {
     isTrialExpired: Boolean
     isTrialActive: Boolean
     refreshToken: String
+    banner: String
     submissions: [Submission!]
 }
 
@@ -152,6 +153,12 @@ type AuthResponse {
     refreshToken: String!
 }
 
+type UpdateBannerResponse {
+    username: String!
+    success: Boolean!
+    banner: String!
+}
+
 type Query {
     getAllUsers: [User!]!
     getUserById(id: ID!): User
@@ -183,6 +190,7 @@ type Query {
      register(user: UserInput!): User!
      updateUser(id: ID!, user: UserInput!): User!
      login(loginRequest: LoginRequest!): AuthResponse!
+     updateUserBanner(username: String!, banner: String!): UpdateBannerResponse!
      createSolution(solution: SolutionInput!): Solution!
      updateSolution(solution: SolutionInput!): Solution!
      deleteSolution(qid: ID!, id: ID!): Boolean!
